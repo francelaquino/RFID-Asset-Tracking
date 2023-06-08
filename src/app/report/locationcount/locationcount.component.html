@@ -1,0 +1,49 @@
+<div class="page-title">Report / Location Count</div>
+<div class="m-2">
+  <div class="col-sm-12 center">
+    <div class="col-md-12 text-right">
+      <button
+        type="button"
+        class="btn btn-outline-primary btn-sm m-1"
+        onclick="window.print()"
+      >
+        Print
+      </button>
+      <button
+        type="button"
+        class="btn btn-outline-primary btn-sm m-1"
+        (click)="onExportToExcel()"
+      >
+        Export to Excel
+      </button>
+    </div>
+
+    <div class="printArea" ng-show="!loading">
+      <div class="header">
+        <div class="title">{{ title }}</div>
+        <div class="dateTime">{{ currentDateTime }}</div>
+      </div>
+      <table cellpadding="0" cellspacing="0">
+        <tr>
+          <th>Location</th>
+          <th>Category</th>
+          <th>Type</th>
+          <th>Item Count</th>
+        </tr>
+        <tbody *ngFor="let i of items">
+          <tr>
+            <td>{{ i.Location }}</td>
+            <td>{{ i.Type }}</td>
+            <td>{{ i.Category }}</td>
+            <td>{{ i.Itemcount }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <ngx-loading
+    [show]="loading"
+    [config]="{ backdropBorderRadius: '3px' }"
+  ></ngx-loading>
+</div>

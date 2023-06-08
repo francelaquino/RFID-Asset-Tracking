@@ -1,0 +1,103 @@
+<div class="page-title">Settings / Reader</div>
+<div class="m-2">
+  <div class="col-sm-12 center">
+    <div class="col-md-12 text-right">
+      <button
+        type="button"
+        class="btn btn-outline-primary btn-sm m-1"
+        (click)="onAddnewReader()"
+      >
+        Add new reader
+      </button>
+    </div>
+    <p-table
+      #table
+      [value]="items"
+      responsiveLayout="scroll"
+      [rows]="10"
+      [showCurrentPageReport]="true"
+      [rowsPerPageOptions]="[10, 25, 50]"
+      [paginator]="true"
+      currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+    >
+      <ng-template pTemplate="header">
+        <tr>
+          <th [pSortableColumn]="'Readername'">
+            Reader Name <p-sortIcon [field]="'Readername'"></p-sortIcon>
+          </th>
+          <th [pSortableColumn]="'Ipaddress'">
+            Server Ip <p-sortIcon [field]="'Ipaddress'"></p-sortIcon>
+          </th>
+          <th [pSortableColumn]="'ReaderIpaddress'">
+            Reader Ip <p-sortIcon [field]="'ReaderIpaddress'"></p-sortIcon>
+          </th>
+
+          <th [pSortableColumn]="'Active'">
+            Active <p-sortIcon [field]="'Active'"></p-sortIcon>
+          </th>
+          <th>Actions</th>
+        </tr>
+        <tr>
+          <th>
+            <input
+              class="form-control form-control-sm p-search"
+              type="text"
+              (input)="
+                table.filter($event.target.value, 'Readername', 'contains')
+              "
+            />
+          </th>
+          <th>
+            <input
+              class="form-control form-control-sm p-search"
+              type="text"
+              (input)="
+                table.filter($event.target.value, 'Ipaddress', 'contains')
+              "
+            />
+          </th>
+          <th>
+            <input
+              class="form-control form-control-sm p-search"
+              type="text"
+              (input)="
+                table.filter($event.target.value, 'ReaderIpaddress', 'contains')
+              "
+            />
+          </th>
+
+          <th>
+            <input
+              class="form-control form-control-sm p-search"
+              type="text"
+              (input)="table.filter($event.target.value, 'Active', 'contains')"
+            />
+          </th>
+
+          <th style="width: 120px"></th>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="body" let-item>
+        <tr>
+          <td>{{ item.Readername }}</td>
+          <td>{{ item.Ipaddress }}</td>
+          <td>{{ item.ReaderIpaddress }}</td>
+          <td>{{ item.Active }}</td>
+          <td>
+            <a title="Edit" routerLink="/settings/editreader/{{ item.Guid }}"
+              ><i class="fa fa-edit text-secondary fa-2x"></i></a
+            >&nbsp;
+          </td>
+        </tr>
+      </ng-template>
+    </p-table>
+  </div>
+  <ngx-loading
+    [show]="loading"
+    [config]="{ backdropBorderRadius: '3px' }"
+  ></ngx-loading>
+</div>
+<p-confirmDialog
+  [style]="{ width: '425px' }"
+  [autoZIndex]="true"
+></p-confirmDialog>

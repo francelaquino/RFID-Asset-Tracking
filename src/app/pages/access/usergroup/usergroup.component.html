@@ -1,0 +1,61 @@
+<div class="page-title">Settings / User Group / Edit Group</div>
+<div class="container col-sm-8">
+  <div class="card">
+    <div class="card-header">Access Details</div>
+    <form role="form" [formGroup]="formGroup">
+      <div class="card-body">
+        <div class="form-group row mb-3">
+          <label class="col-sm-2 col-form-label"
+            >User <span class="required">*</span></label
+          >
+          <div class="col-sm-5">
+            <div class="col-sm-12">
+              <div class="input-group">
+                <p-autoComplete
+                  class="form-control-sm-ng"
+                  (onSelect)="onGetEmployeeAccess()"
+                  formControlName="UserId"
+                  [suggestions]="filteredUsers"
+                  [dropdown]="true"
+                  [forceSelection]="true"
+                  (completeMethod)="filterUser($event)"
+                ></p-autoComplete>
+              </div>
+            </div>
+          </div>
+          <div class="col-sm-5"></div>
+        </div>
+
+        <hr />
+
+        <div class="form-group row mb-3">
+          <div class="col-sm-3" *ngFor="let item of groupList">
+            <input
+              type="checkbox"
+              [checked]="item.IsMember"
+              (change)="onActionChange(item.Id, $event)"
+            />
+            <label class="col-form-label">&nbsp; {{ item.Module }} </label>
+          </div>
+        </div>
+
+        <div class="bg-transparent text-right">
+          <button
+            type="button"
+            class="btn btn-primary btn-sm m-1"
+            (click)="onSave()"
+          >
+            Save
+          </button>
+          <button type="button" class="btn btn-secondary btn-sm">Clear</button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+
+<ngx-loading
+  [show]="loading"
+  [config]="{ backdropBorderRadius: '3px' }"
+></ngx-loading>
+<p-toast [baseZIndex]="5000"></p-toast>

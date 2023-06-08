@@ -1,0 +1,195 @@
+<div class="page-title">Report / Assets</div>
+<div class="m-2">
+  <div class="col-sm-12 center">
+    <div class="col-md-12 text-right">
+      <button
+        type="button"
+        class="btn btn-outline-primary btn-sm m-1"
+        (click)="openFilter()"
+      >
+        Filter
+      </button>
+      <button
+        type="button"
+        class="btn btn-outline-primary btn-sm m-1"
+        (click)="onClearFilter()"
+      >
+        Clear Filter
+      </button>
+      <button
+        type="button"
+        class="btn btn-outline-primary btn-sm m-1"
+        onclick="window.print()"
+      >
+        Print
+      </button>
+      <button
+        type="button"
+        class="btn btn-outline-primary btn-sm m-1"
+        (click)="onExportToExcel()"
+      >
+        Export to Excel
+      </button>
+    </div>
+
+    <div class="printArea" ng-show="!loading">
+      <div class="header">
+        <div class="title">{{ title }}</div>
+        <div class="dateTime">{{ currentDateTime }}</div>
+      </div>
+      <table cellpadding="0" cellspacing="0">
+        <tr>
+          <th>Asset No.</th>
+          <th>RFID</th>
+          <th>Item Name</th>
+          <th>Type</th>
+          <th>Category</th>
+          <th>Location</th>
+          <th>Checkout Date</th>
+          <th>Status</th>
+          <th>Active</th>
+        </tr>
+        <tbody *ngFor="let i of items">
+          <tr>
+            <td>{{ i.Id }}</td>
+            <td>{{ i.Tag }}</td>
+            <td>{{ i.Itemname }}</td>
+            <td>{{ i.Type }}</td>
+            <td>{{ i.Category }}</td>
+            <td>{{ i.Location }}</td>
+            <td>{{ i.CheckoutDate }}</td>
+            <td>{{ i.Status }}</td>
+            <td>{{ i.Active }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <p-dialog
+    [(visible)]="isOpenFilter"
+    [style]="{ width: '30vw' }"
+    header="Filter"
+  >
+    <form role="form" [formGroup]="formGroup">
+      <div class="card-body">
+        <div class="form-group row mb-3">
+          <label class="col-sm-4 col-form-label">Asset No. </label>
+          <div class="col-sm-8">
+            <input
+              type="text"
+              class="form-control form-control-sm"
+              formControlName="Id"
+            />
+          </div>
+        </div>
+        <div class="form-group row mb-3">
+          <label class="col-sm-4 col-form-label">Tag </label>
+          <div class="col-sm-8">
+            <input
+              type="text"
+              class="form-control form-control-sm"
+              formControlName="Tag"
+            />
+          </div>
+        </div>
+
+        <div class="form-group row mb-3">
+          <label class="col-sm-4 col-form-label">Item Name </label>
+          <div class="col-sm-8">
+            <input
+              type="text"
+              class="form-control form-control-sm"
+              formControlName="Itemname"
+            />
+          </div>
+        </div>
+
+        <div class="form-group row mb-3">
+          <label class="col-sm-4 col-form-label">Type </label>
+          <div class="col-sm-8">
+            <select
+              class="form-control"
+              autocomplete="off"
+              formControlName="Type"
+            >
+              <option value="00000000-0000-0000-0000-000000000000"></option>
+              <option *ngFor="let a of lookupType" value="{{ a.Value }}">
+                {{ a.Text }}
+              </option>
+            </select>
+          </div>
+        </div>
+
+        <div class="form-group row mb-3">
+          <label class="col-sm-4 col-form-label">Category </label>
+          <div class="col-sm-8">
+            <select
+              class="form-control"
+              autocomplete="off"
+              formControlName="Category"
+            >
+              <option value="00000000-0000-0000-0000-000000000000"></option>
+              <option *ngFor="let a of lookupCategory" value="{{ a.Value }}">
+                {{ a.Text }}
+              </option>
+            </select>
+          </div>
+        </div>
+        <div class="form-group row mb-3">
+          <label class="col-sm-4 col-form-label">Location </label>
+          <div class="col-sm-8">
+            <select
+              class="form-control"
+              autocomplete="off"
+              formControlName="Location"
+            >
+              <option value="00000000-0000-0000-0000-000000000000"></option>
+              <option *ngFor="let a of lookupLocation" value="{{ a.Value }}">
+                {{ a.Text }}
+              </option>
+            </select>
+          </div>
+        </div>
+
+        <div class="form-group row mb-3">
+          <label class="col-sm-4 col-form-label">Status </label>
+          <div class="col-sm-8">
+            <select
+              class="form-control form-control-sm"
+              autocomplete="off"
+              id="mode"
+              formControlName="Status"
+            >
+              <option value=""></option>
+              <option value="Checkin">Checkin</option>
+              <option value="Checkout">Checkout</option>
+            </select>
+          </div>
+        </div>
+      </div>
+      <div class="card-footer bg-transparent text-right">
+        <button
+          type="button"
+          (click)="onSearch()"
+          class="btn btn-primary btn-sm m-1"
+        >
+          Search
+        </button>
+        <button
+          type="button"
+          (click)="onClear()"
+          class="btn btn-secondary btn-sm m-1"
+        >
+          Clear
+        </button>
+      </div>
+    </form>
+  </p-dialog>
+
+  <ngx-loading
+    [show]="loading"
+    [config]="{ backdropBorderRadius: '3px' }"
+  ></ngx-loading>
+  <p-toast [baseZIndex]="5000"></p-toast>
+</div>

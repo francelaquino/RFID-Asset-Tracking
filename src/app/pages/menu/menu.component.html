@@ -1,0 +1,248 @@
+<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+  <div class="container-fluid">
+    <img src="./assets/track.png" style="width: 120px" />
+    <button
+      class="navbar-toggler"
+      type="button"
+      data-bs-toggle="collapse"
+      data-bs-target="#main_nav"
+    >
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="main_nav">
+      <ul class="navbar-nav">
+        <li class="nav-item active">
+          <a class="nav-link" routerLink="/home/dashboard">Dashboard </a>
+        </li>
+        <li class="nav-item dropdown" *ngIf="checkRoles('asset')">
+          <a
+            class="nav-link dropdown-toggle"
+            href="#"
+            data-bs-toggle="dropdown"
+          >
+            Asset
+          </a>
+          <ul class="dropdown-menu">
+            <li *ngIf="checkRoles('createitem')">
+              <a class="dropdown-item" routerLink="/item/createitem">
+                New Asset</a
+              >
+            </li>
+            <li *ngIf="checkRoles('searchitem')">
+              <a class="dropdown-item" routerLink="/item/searchitem">
+                Search Asset
+              </a>
+            </li>
+            <li *ngIf="checkRoles('iteminquiry')">
+              <a class="dropdown-item" routerLink="/item/iteminquiry">
+                Asset Inquiry
+              </a>
+            </li>
+          </ul>
+        </li>
+        <li class="nav-item dropdown" *ngIf="checkRoles('workorder')">
+          <a
+            class="nav-link dropdown-toggle"
+            href="#"
+            data-bs-toggle="dropdown"
+          >
+            Work Order
+          </a>
+          <ul class="dropdown-menu">
+            <li *ngIf="checkRoles('createworkorder')">
+              <a class="dropdown-item" routerLink="/workorder/createworkorder">
+                Create Work Order</a
+              >
+            </li>
+            <li *ngIf="checkRoles('searchworkorder')">
+              <a class="dropdown-item" routerLink="/workorder/searchworkorder">
+                Search Work Order
+              </a>
+            </li>
+            <li *ngIf="checkRoles('assignitemtoworkorder')">
+              <a
+                class="dropdown-item"
+                routerLink="/workorder/assignitemtoworkorder"
+              >
+                Assign Item to Work Order
+              </a>
+            </li>
+            <li *ngIf="checkRoles('workorderinquiry')">
+              <a class="dropdown-item" routerLink="/workorder/workorderinquiry">
+                Work Order Inquiry</a
+              >
+            </li>
+          </ul>
+        </li>
+        <li class="nav-item dropdown" *ngIf="checkRoles('scan')">
+          <a
+            class="nav-link dropdown-toggle"
+            href="#"
+            data-bs-toggle="dropdown"
+          >
+            Scan
+          </a>
+          <ul class="dropdown-menu">
+            <li *ngIf="checkRoles('scanitem')">
+              <a class="dropdown-item" routerLink="/scan/scanitem">
+                Scan Item</a
+              >
+            </li>
+            <li *ngIf="checkRoles('itemscanin')">
+              <a class="dropdown-item" routerLink="/scan/itemscanin">
+                Item Checkin</a
+              >
+            </li>
+            <li *ngIf="checkRoles('itemscanout')">
+              <a class="dropdown-item" routerLink="/scan/itemscanout">
+                Item Checkout</a
+              >
+            </li>
+            <li *ngIf="checkRoles('scanin')">
+              <a class="dropdown-item" routerLink="/scan/scanin">
+                Work Order Checkin</a
+              >
+            </li>
+            <li *ngIf="checkRoles('scanout')">
+              <a class="dropdown-item" routerLink="/scan/scanout">
+                Work Order Checkout</a
+              >
+            </li>
+          </ul>
+        </li>
+        <li class="nav-item dropdown" *ngIf="checkRoles('employee')">
+          <a
+            class="nav-link dropdown-toggle"
+            href="#"
+            data-bs-toggle="dropdown"
+          >
+            Employee
+          </a>
+          <ul class="dropdown-menu">
+            <li *ngIf="checkRoles('newemployee')">
+              <a class="dropdown-item" routerLink="/employee/newemployee">
+                New Employee</a
+              >
+            </li>
+            <li *ngIf="checkRoles('searchemployee')">
+              <a class="dropdown-item" routerLink="/employee/searchemployee">
+                Search Employeeff
+              </a>
+            </li>
+          </ul>
+        </li>
+        <!--<li class="nav-item dropdown">
+					<a class="nav-link  dropdown-toggle" href="#" data-bs-toggle="dropdown"> User </a>
+					<ul class="dropdown-menu">
+						<li><a class="dropdown-item" href="#"> Create User</a></li>
+						<li><a class="dropdown-item" href="#"> Search User </a></li>
+					</ul>
+				</li>-->
+        <li class="nav-item dropdown" *ngIf="checkRoles('settings')">
+          <a
+            class="nav-link dropdown-toggle"
+            href="#"
+            data-bs-toggle="dropdown"
+          >
+            Settings
+          </a>
+          <ul class="dropdown-menu">
+            <li *ngIf="checkRoles('viewtype')">
+              <a class="dropdown-item" routerLink="/settings/viewtype">
+                Types
+              </a>
+            </li>
+            <li *ngIf="checkRoles('viewcategory')">
+              <a class="dropdown-item" routerLink="/settings/viewcategory"
+                >Categories</a
+              >
+            </li>
+            <li *ngIf="checkRoles('viewlocation')">
+              <a class="dropdown-item" routerLink="/settings/viewlocation"
+                >Locations</a
+              >
+            </li>
+            <li *ngIf="checkRoles('viewreader')">
+              <a class="dropdown-item" routerLink="/settings/viewreader"
+                >Readers</a
+              >
+            </li>
+            <li *ngIf="checkRoles('searchuser')">
+              <a class="dropdown-item" routerLink="/user/searchuser">Users</a>
+            </li>
+            <li *ngIf="checkRoles('usergroup')">
+              <a class="dropdown-item" routerLink="/settings/usergroup"
+                >User Groups</a
+              >
+            </li>
+
+            <li *ngIf="checkRoles('newaccessgroup')">
+              <a class="dropdown-item" routerLink="/settings/newaccessgroup"
+                >Access Groups</a
+              >
+            </li>
+
+            <!--<li><a class="dropdown-item" routerLink="/settings/viewstation">Station</a></li>
+						-->
+          </ul>
+        </li>
+
+        <li class="nav-item dropdown" *ngIf="checkRoles('reports')">
+          <a
+            class="nav-link dropdown-toggle"
+            href="#"
+            data-bs-toggle="dropdown"
+          >
+            Reports
+          </a>
+          <ul class="dropdown-menu">
+            <li *ngIf="checkRoles('assetlist')">
+              <a class="dropdown-item" routerLink="/report/assetlist">
+                Asset Report</a
+              >
+            </li>
+            <li *ngIf="checkRoles('unavailableasset')">
+              <a class="dropdown-item" routerLink="/report/unavailableasset">
+                Unavailable Asset Report</a
+              >
+            </li>
+            <li *ngIf="checkRoles('workorderlist')">
+              <a class="dropdown-item" routerLink="/report/workorderlist">
+                Work Order Report</a
+              >
+            </li>
+            <li *ngIf="checkRoles('locationcount')">
+              <a class="dropdown-item" routerLink="/report/locationcount">
+                Location Count Report</a
+              >
+            </li>
+            <li *ngIf="checkRoles('itemtransaction')">
+              <a class="dropdown-item" routerLink="/report/itemtransaction">
+                Item Transactions Report</a
+              >
+            </li>
+          </ul>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" (click)="Logout()"> Logout </a>
+        </li>
+        <div
+          style="
+            color: white;
+            padding-top: 6px;
+            float: right;
+            position: absolute;
+            right: 10px;
+            font-size: 12px;
+          "
+        >
+          Powered By : New Vision Systems Inc.
+        </div>
+      </ul>
+    </div>
+    <!-- navbar-collapse.// -->
+  </div>
+  <!-- container-fluid.// -->
+</nav>
+
+<router-outlet> </router-outlet>

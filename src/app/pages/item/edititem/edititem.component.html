@@ -1,0 +1,192 @@
+<div class="page-title">Asset / Edit Asset</div>
+<div class="container col-sm-8">
+  <div class="card">
+    <div class="card-header">Asset Details</div>
+    <form role="form" [formGroup]="formGroup">
+      <div class="card-body">
+        <div class="form-group row mb-3">
+          <label class="col-sm-4 col-form-label"></label>
+          <div class="col-sm-8">
+            <div class="col-sm-12">
+              <div class="mb-3">
+                <p-image [src]="imageUrl" alt="Image" [preview]="true">
+                  <ng-template pTemplate="indicator">
+                    Click to View
+                  </ng-template>
+                </p-image>
+              </div>
+              <input
+                class="form-control"
+                type="file"
+                (change)="onImageChange($event)"
+              />
+            </div>
+          </div>
+        </div>
+
+        <div class="form-group row mb-3">
+          <label class="col-sm-4 col-form-label">Tag</label>
+          <div class="col-sm-8">
+            <div class="col-sm-12">
+              <div class="input-group">
+                <input
+                  type="text"
+                  id="tag"
+                  formControlName="Tag"
+                  class="form-control form-control-sm"
+                />
+                <button
+                  *ngIf="!isReading"
+                  (click)="onReadStart()"
+                  class="btn btn-outline-primary btn-sm"
+                  type="button"
+                >
+                  Start Reading
+                </button>
+                <button
+                  *ngIf="isReading"
+                  (click)="onReadStop()"
+                  class="btn btn-outline-danger btn-sm"
+                  type="button"
+                >
+                  Stop Reading
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="form-group row mb-3">
+          <label class="col-sm-4 col-form-label"
+            >Asset Name <span class="required">*</span></label
+          >
+          <div class="col-sm-8">
+            <input
+              type="text"
+              class="form-control form-control-sm"
+              formControlName="Itemname"
+            />
+          </div>
+        </div>
+
+        <div class="form-group row mb-3">
+          <label class="col-sm-4 col-form-label"
+            >Type <span class="required">*</span></label
+          >
+          <div class="col-sm-8">
+            <select
+              class="form-control"
+              autocomplete="off"
+              formControlName="Type"
+            >
+              <option *ngFor="let a of lookupType" value="{{ a.Value }}">
+                {{ a.Text }}
+              </option>
+            </select>
+          </div>
+        </div>
+        <div class="form-group row mb-3">
+          <label class="col-sm-4 col-form-label"
+            >Category <span class="required">*</span></label
+          >
+          <div class="col-sm-8">
+            <select
+              class="form-control"
+              autocomplete="off"
+              formControlName="Category"
+            >
+              <option *ngFor="let a of lookupCategory" value="{{ a.Value }}">
+                {{ a.Text }}
+              </option>
+            </select>
+          </div>
+        </div>
+        <div class="form-group row mb-3">
+          <label class="col-sm-4 col-form-label">Location</label>
+          <div class="col-sm-8">
+            <select
+              class="form-control"
+              autocomplete="off"
+              formControlName="Location"
+            >
+              <option value="00000000-0000-0000-0000-000000000000"></option>
+              <option *ngFor="let a of lookupLocation" value="{{ a.Value }}">
+                {{ a.Text }}
+              </option>
+            </select>
+          </div>
+        </div>
+
+        <div class="form-group row mb-3">
+          <label class="col-sm-4 col-form-label">Manufacturer </label>
+          <div class="col-sm-8">
+            <input
+              type="text"
+              class="form-control form-control-sm"
+              formControlName="Manufacturer"
+            />
+          </div>
+        </div>
+
+        <div class="form-group row mb-3">
+          <label class="col-sm-4 col-form-label">Model</label>
+          <div class="col-sm-8">
+            <input
+              type="text"
+              class="form-control form-control-sm"
+              formControlName="Model"
+            />
+          </div>
+        </div>
+
+        <div class="form-group row mb-3">
+          <label class="col-sm-4 col-form-label">Description </label>
+          <div class="col-sm-8">
+            <input
+              type="text"
+              class="form-control form-control-sm"
+              formControlName="Description"
+            />
+          </div>
+        </div>
+        <div class="form-group row mb-3">
+          <label class="col-sm-4 col-form-label"
+            >Is NOT allowed to go out
+          </label>
+          <div class="col-sm-8">
+            <input type="checkbox" formControlName="IsAllowedToGoOut" />
+          </div>
+        </div>
+        <div class="form-group row mb-3">
+          <label class="col-sm-4 col-form-label">Active </label>
+          <div class="col-sm-8">
+            <select
+              class="form-control form-control-sm"
+              autocomplete="off"
+              id="isactive"
+              formControlName="Active"
+            >
+              <option value="Active">Active</option>
+              <option value="Inactive">Inactive</option>
+            </select>
+          </div>
+        </div>
+      </div>
+      <div class="card-footer bg-transparent text-right">
+        <button
+          type="button"
+          (click)="onSubmit()"
+          class="btn btn-primary btn-sm m-1"
+        >
+          Save
+        </button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<ngx-loading
+  [show]="loading"
+  [config]="{ backdropBorderRadius: '3px' }"
+></ngx-loading>
+<p-toast [baseZIndex]="5000"></p-toast>

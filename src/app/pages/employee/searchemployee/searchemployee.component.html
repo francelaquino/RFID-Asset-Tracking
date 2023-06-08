@@ -1,0 +1,96 @@
+<div class="page-title">Employee / Search Employee</div>
+<div class="m-2">
+  <div class="col-sm-12 center">
+    <p-table
+      #table
+      [value]="items"
+      responsiveLayout="scroll"
+      [rows]="10"
+      [showCurrentPageReport]="true"
+      [rowsPerPageOptions]="[10, 25, 50]"
+      [paginator]="true"
+      currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+    >
+      <ng-template pTemplate="header">
+        <tr>
+          <th [pSortableColumn]="'Employeeid'">
+            Employee Id
+            <p-sortIcon [field]="'Employeeid'"></p-sortIcon>
+          </th>
+          <th [pSortableColumn]="'Firstname'">
+            First Name
+            <p-sortIcon [field]="'Firstname'"></p-sortIcon>
+          </th>
+          <th [pSortableColumn]="'Lastname'">
+            Last Name<p-sortIcon [field]="'Lastname'"></p-sortIcon>
+          </th>
+          <th [pSortableColumn]="'Email'">
+            Email<p-sortIcon [field]="'Email'"></p-sortIcon>
+          </th>
+          <th [pSortableColumn]="'Active'">
+            Active<p-sortIcon [field]="'Active'"></p-sortIcon>
+          </th>
+          <th>Actions</th>
+        </tr>
+        <tr>
+          <th>
+            <input
+              class="form-control form-control-sm p-search"
+              type="text"
+              (input)="
+                table.filter($event.target.value, 'Employeeid', 'contains')
+              "
+            />
+          </th>
+          <th>
+            <input
+              class="form-control form-control-sm p-search"
+              type="text"
+              (input)="
+                table.filter($event.target.value, 'Firstname', 'contains')
+              "
+            />
+          </th>
+          <th>
+            <input
+              class="form-control form-control-sm p-search"
+              type="text"
+              (input)="
+                table.filter($event.target.value, 'Lastname', 'contains')
+              "
+            />
+          </th>
+          <th>
+            <input
+              class="form-control form-control-sm p-search"
+              type="text"
+              (input)="table.filter($event.target.value, 'Email', 'contains')"
+            />
+          </th>
+          <th>
+            <input
+              class="form-control form-control-sm p-search"
+              type="text"
+              (input)="table.filter($event.target.value, 'Active', 'contains')"
+            />
+          </th>
+          <th></th>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="body" let-item>
+        <tr>
+          <td>{{ item.Employeeid }}</td>
+          <td>{{ item.Firstname }}</td>
+          <td>{{ item.Lastname }}</td>
+          <td>{{ item.Email }}</td>
+          <td>{{ item.Active }}</td>
+          <td style="width: 40px">
+            <a title="Edit" routerLink="/employee/editemployee/{{ item.Guid }}"
+              ><i class="fa fa-edit text-secondary fa-2x"></i></a
+            >&nbsp;
+          </td>
+        </tr>
+      </ng-template>
+    </p-table>
+  </div>
+</div>
